@@ -6,8 +6,7 @@ class NeuralNetwork():
 
 
     #TODOLIST
-    #
-    # - Add to my github
+    # - Need a dataset that has 4 yes/no datapoints and a result (likelyness to succeed, predicted income by factors...)
     # - Change number of variables to match a CSV dataset
     # - Predict something real
     #
@@ -20,7 +19,7 @@ class NeuralNetwork():
 
         # converting weights to a 3 by 1 matrix with values from -1 to 1 and
         # mean of 0
-        self.weights =  2 * np.random.random((3, 1)) - 1
+        self.weights =  2 * np.random.random((4, 1)) - 1
 
     
 
@@ -62,8 +61,8 @@ if __name__ == "__main__":
 
     neural_network = NeuralNetwork()
 
-    inputData = np.array([[1,0,1],[0,1,0],[1,1,1],[0,0,0]])
-    outputData = np.array([[1,0,1,0]]).T
+    inputData = np.array([[1,1,1,1],[1,1,0,0],[0,1,1,1],[0,0,0,1]])
+    outputData = np.array([[1,0.7,0.8,0.3]]).T
 
     neural_network.train(inputData, outputData)
 
@@ -73,9 +72,10 @@ if __name__ == "__main__":
     inputOne = str(input("Input One: "))
     inputTwo = str(input("Input Two: "))
     inputThree = str(input("Input three: "))
+    inputFour = str(input("Input four: "))
 
     print("Outcome: ")
-    print(neural_network.think(np.array([inputOne, inputTwo, inputThree])))
+    print(neural_network.think(np.array([inputOne, inputTwo, inputThree, inputFour])))
     
 
     
