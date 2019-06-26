@@ -61,8 +61,8 @@ if __name__ == "__main__":
 
     neural_network = NeuralNetwork()
 
-    inputData = np.array([[1,1,1,1],[1,1,0,0],[0,1,1,1],[0,0,0,1]])
-    outputData = np.array([[1,0.7,0.8,0.3]]).T
+    inputData = np.array([[10,200,90,24],[20,200,90,26],[30,195,85,24],[10,200,91,23]]) #These need to be between -1 and 1...
+    outputData = np.array([[0.3,0.5,0.8,0.3]]).T
 
     neural_network.train(inputData, outputData)
 
