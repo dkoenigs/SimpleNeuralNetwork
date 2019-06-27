@@ -1,4 +1,5 @@
 import numpy as np
+import csv
 
 class NeuralNetwork():
 
@@ -19,7 +20,7 @@ class NeuralNetwork():
 
         # converting weights to a 3 by 1 matrix with values from -1 to 1 and
         # mean of 0
-        self.weights =  2 * np.random.random((4, 1)) - 1
+        self.weights =  2 * np.random.random((3, 1)) - 1
 
     
 
@@ -33,7 +34,7 @@ class NeuralNetwork():
     def train(self, trainingInput, trainingOutput):
 
         
-        for iteration in range(1000):
+        for iteration in range(100):
             
             guessedOutput = self.think(trainingInput) # Get result with existing coefficients
 
@@ -61,21 +62,56 @@ if __name__ == "__main__":
 
     neural_network = NeuralNetwork()
 
-    inputData = np.array([[10,200,90,24],[20,200,90,26],[30,195,85,24],[10,200,91,23]]) #These need to be between -1 and 1...
-    outputData = np.array([[0.3,0.5,0.8,0.3]]).T
+    # load csv file
+    f = open('LondonOlympicsDataCSV.csv')
+    csvFile = csv.reader(f)
+
+    inputData = np.zeros((568, 3)) # These need to be between 0 and 1...
+    outputData = np.zeros((568))
+    p=0
+    for row in csvFile:
+
+        if (p != 0):
+            inputData[p-1][0] = row[0]
+            inputData[p-1][1] = row[1]
+            inputData[p-1][2] = row[2]
+
+            outputData[p-1] = row[3]
+        
+        p+=1
+
+    outputData = np.array([outputData]).T
+    print(outputData)
+    
+
+        
+
+    # Normalize inputData
+    i=0
+    for iteration in range(len(inputData)):
+        inputData[i][0] = (float(inputData[i][0]) - 15.0) / 23.0
+        inputData[i][1] = (float(inputData[i][1]) - 160.0) / 61.0
+        inputData[i][2] = (float(inputData[i][2]) - 50.0) / 80.0
+        i+=1
+    
 
     neural_network.train(inputData, outputData)
 
     print("Weights after training: ")
     print(neural_network.weights)
 
-    inputOne = str(input("Input One: "))
-    inputTwo = str(input("Input Two: "))
-    inputThree = str(input("Input three: "))
-    inputFour = str(input("Input four: "))
+    
+
+    inputOne = str(input("Age: "))
+    inputTwo = str(input("Height: "))
+    inputThree = str(input("Weight: "))
+
+    inputOne = (float(inputOne) - 15.0) / 23.0
+    inputTwo = (float(inputTwo) - 160.0) / 61.0
+    inputThree = (float(inputThree) - 50.0) / 80.0
 
     print("Outcome: ")
-    print(neural_network.think(np.array([inputOne, inputTwo, inputThree, inputFour])))
+    print(neural_network.think(np.array([inputOne, inputTwo, inputThree])))
     
 
     
