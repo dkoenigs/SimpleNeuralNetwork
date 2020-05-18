@@ -7,7 +7,7 @@ class NeuralNetwork():
 
 
     #TODOLIST
-    # - Need a dataset that has 4 yes/no datapoints and a result (likelyness to succeed, predicted income by factors...)
+    # - Need a dataset that has 4 yes/no datapoints and a result (likeliness to succeed, predicted income by factors...)
     # - Change number of variables to match a CSV dataset
     # - Predict something real
     #
